@@ -1,0 +1,1202 @@
+:root {
+    --primary-color: #8a2be2;
+    --secondary-color: #9370db;
+    --accent-color: #ff8c00;
+    --text-color: #2c3e50;
+    --light-text: #f8f9fa;
+    --bg-gradient-day: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+    --bg-gradient-night: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    --card-bg-day: rgba(255, 255, 255, 0.25);
+    --card-bg-night: rgba(0, 0, 0, 0.25);
+    --card-border-day: rgba(255, 255, 255, 0.4);
+    --card-border-night: rgba(255, 255, 255, 0.1);
+    --shadow-day: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --shadow-night: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --success-color: #4caf50;
+    --error-color: #f44336;
+}
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    background: var(--bg-gradient-day);
+    min-height: 100vh;
+    transition: all 0.5s ease;
+    line-height: 1.6;
+    padding-top: 180px; /* Added for fixed header */
+}
+body.night-mode {
+    color: var(--light-text);
+    background: var(--bg-gradient-night);
+}
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+.stars, .twinkling, .clouds, .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.stars {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="0.8" fill="white" opacity="0.8"/><circle cx="30" cy="25" r="0.6" fill="white" opacity="0.7"/><circle cx="70" cy="15" r="0.5" fill="white" opacity="0.6"/><circle cx="85" cy="30" r="0.7" fill="white" opacity="0.7"/><circle cx="20" cy="50" r="0.6" fill="white" opacity="0.6"/><circle cx="45" cy="65" r="0.5" fill="white" opacity="0.5"/><circle cx="75" cy="80" r="0.8" fill="white" opacity="0.8"/><circle cx="90" cy="90" r="0.6" fill="white" opacity=".6"/><circle cx="15" cy="85" r="0.7" fill="white" opacity="0.7"/></svg>') repeat;
+    opacity: 0.3;
+    animation: twinkle 7s infinite ease-in-out;
+}
+body.night-mode .stars {
+    opacity: 0.9;
+}
+.twinkling {
+    background: transparent;
+    animation: twinkle 4s infinite alternate;
+}
+.clouds {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100" viewBox="0 0 300 100"><path d="M30,50 Q40,40 50,50 Q60,30 70,50 Q80,40 90,50 Z" fill="white" opacity="0.2"/><path d="M120,40 Q135,25 150,40 Q165,15 180,40 Q195,25 210,40 Z" fill="white" opacity="0.2"/><path d="M220,70 Q235,55 250,70 Q265,45 280,70 Z" fill="white" opacity="0.2"/></svg>') repeat;
+    animation: moveClouds 80s linear infinite;
+}
+.particles {
+    pointer-events: none;
+}
+@keyframes moveClouds {
+    0% { background-position: 0 0; }
+    100% { background-position: 1000px 0; }
+}
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+/* Fixed Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    background: var(--card-bg-day);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border-day);
+    box-shadow: var(--shadow-day);
+    z-index: 100;
+    transition: all 0.5s ease;
+}
+body.night-mode header {
+    background: var(--card-bg-night);
+    border-bottom: 1px solid var(--card-border-night);
+    box-shadow: var(--shadow-night);
+}
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+.dream-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #8a2be2, #ff8c00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 8s ease infinite;
+    background-size: 200% 200%;
+}
+body.night-mode .dream-title {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+.dream-subtitle {
+    font-family: 'Comfortaa', cursive;
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0;
+}
+body.night-mode .dream-subtitle {
+    color: var(--light-text);
+}
+.theme-toggle {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    background: var(--card-bg-day);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--card-border-day);
+    box-shadow: var(--shadow-day);
+    transition: all 0.3s ease;
+}
+body.night-mode .theme-toggle {
+    background: var(--card-bg-night);
+    border: 1px solid var(--card-border-night);
+    box-shadow: var(--shadow-night);
+}
+.theme-toggle:hover {
+    transform: translateY(-50%) scale(1.1) rotate(15deg);
+}
+#theme-icon {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+.filter-toggle {
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+    background: var(--card-bg-day);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--card-border-day);
+    box-shadow: var(--shadow-day);
+    transition: all 0.3s ease;
+}
+body.night-mode .filter-toggle {
+    background: var(--card-bg-night);
+    border: 1px solid var(--card-border-night);
+    box-shadow: var(--shadow-night);
+}
+.filter-toggle:hover {
+    transform: translateY(-50%) scale(1.1) rotate(15deg);
+}
+.filter-toggle i {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+}
+/* Floating Add Button */
+.floating-add-btn {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    width: 70px;
+    height: 70px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 6px 25px rgba(138, 43, 226, 0.3);
+    z-index: 99;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+.floating-add-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.floating-add-btn:hover::before {
+    opacity: 1;
+}
+.floating-add-btn i {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+.floating-add-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4);
+}
+.floating-add-btn:hover i {
+    transform: rotate(15deg);
+}
+.floating-add-btn .tooltip {
+    position: absolute;
+    right: 80px;
+    background: var(--text-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+body.night-mode .floating-add-btn .tooltip {
+    background: var(--light-text);
+    color: var(--text-color);
+}
+.floating-add-btn:hover .tooltip {
+    opacity: 1;
+    right: 90px;
+}
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+/* Enhanced Modal Styles */
+.modal-content {
+    width: 90%;
+    max-width: 600px;
+    animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    perspective: 1000px;
+}
+@keyframes modalFadeIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.glass-card {
+    background: var(--card-bg-day);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--card-border-day);
+    box-shadow: var(--shadow-day);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
+body.night-mode .glass-card {
+    background: var(--card-bg-night);
+    border: 1px solid var(--card-border-night);
+    box-shadow: var(--shadow-night);
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.modal-header h2 {
+    font-family: 'Comfortaa', cursive;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.8rem;
+}
+body.night-mode .modal-header h2 {
+    color: var(--light-text);
+}
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+body.night-mode .close-modal {
+    color: var(--light-text);
+}
+.close-modal:hover {
+    transform: rotate(90deg);
+    background: rgba(0, 0, 0, 0.1);
+}
+/* Enhanced Form Styling */
+.form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.form-group:hover {
+    transform: translateY(-3px);
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+body.night-mode .form-group label {
+    color: var(--light-text);
+}
+.form-group i {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+body.night-mode .form-group i {
+    color: var(--light-text);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+body.night-mode .form-group input,
+body.night-mode .form-group textarea,
+body.night-mode .form-group select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--light-text);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+    transform: scale(1.01);
+}
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.7;
+}
+/* Enhanced Submit Button */
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    border: none;
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 100%;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.submit-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
+}
+.submit-btn:active {
+    transform: translateY(-2px);
+}
+/* Dream Gallery */
+.dream-gallery {
+    margin-top: 2rem;
+}
+.dream-gallery h2 {
+    font-family: 'Comfortaa', cursive;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+body.night-mode .dream-gallery h2 {
+    color: var(--light-text);
+}
+.dreams-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+/* Tilted Dream Cards with Pin Effect */
+.dream-card {
+    background: var(--card-bg-day);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid var(--card-border-day);
+    box-shadow: var(--shadow-day);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    transform: translateY(20px) rotate(-1deg);
+    animation: fadeIn 0.5s forwards;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+.dream-card:nth-child(even) {
+    transform: translateY(20px) rotate(1deg);
+}
+.dream-card::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at center, var(--accent-color) 0%, transparent 70%);
+    opacity: 0.3;
+    z-index: 1;
+}
+.dream-card::after {
+    content: '📌';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    transform: rotate(20deg);
+    z-index: 2;
+}
+.dream-card:hover {
+    transform: translateY(-10px) rotate(0deg) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+/* Enhanced Card Styling */
+.dream-card h3 {
+    font-family: 'Comfortaa', cursive;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    padding-right: 2rem;
+}
+.dream-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transition: width 0.3s ease;
+}
+.dream-card:hover h3::after {
+    width: 100px;
+}
+body.night-mode .dream-card h3 {
+    color: var(--light-text);
+}
+.dream-card .dream-author {
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.dream-card .dream-author i {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+body.night-mode .dream-card .dream-author {
+    color: var(--light-text);
+}
+.dream-card .dream-description {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: var(--text-color);
+}
+body.night-mode .dream-card .dream-description {
+    color: var(--light-text);
+}
+.dream-dates {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(0, 0, 0, 0.1);
+}
+body.night-mode .dream-dates {
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+.dream-card .dream-date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display:;
+    align-items: center;
+    gap: 0.5rem;
+}
+.dream-card .dream-date i {
+    width: 20px;
+    text-align: center;
+}
+body.night-mode .dream-card .dream-date {
+    color: #aaa;
+}
+.dream-date.past-date {
+    color: var(--error-color);
+}
+body.night-mode .dream-date.past-date {
+    color: #ff8080;
+}
+/* Filters Section */
+.filters-section {
+    background: var(--card-bg-day);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--card-border-day);
+    box-shadow: var(--shadow-day);
+    transition: all 0.3s ease;
+    transform: translateY(-20px);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+body.night-mode .filters-section {
+    background: var(--card-bg-night);
+    border: 1px solid var(--card-border-night);
+    box-shadow: var(--shadow-night);
+}
+.filters-section.active {
+    transform: translateY(0);
+    opacity: 1;
+    max-height: 500px;
+    margin-bottom: 2rem;
+}
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+.search-container {
+    display: flex;
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+}
+.search-container input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+body.night-mode .search-container input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--light-text);
+}
+.search-container button {
+    padding: 0 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.search-container button:hover {
+    background: var(--accent-color);
+}
+.sort-container {
+    display: flex;
+    gap: 0.5rem;
+}
+.sort-container select {
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+body.night-mode .sort-container select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--light-text);
+}
+.sort-container button {
+    padding: 0 1.5rem;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.sort-container button:hover {
+    background: var(--accent-color);
+}
+.dream-date.past-date {
+    color: var(--error-color);
+}
+body.night-mode .dream-date.past-date {
+    color: #ff8080;
+}
+/* Placeholder Cards */
+.placeholder-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    animation: pulse 1.5s infinite ease-in-out;
+    border-radius: 15px;
+}
+body.night-mode .placeholder-card {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+.placeholder-content {
+    width: 80%;
+}
+.placeholder-line {
+    height: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-bottom: 12px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+.placeholder-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+.placeholder-line:nth-child(1) {
+    width: 80%;
+}
+.placeholder-line:nth-child(2) {
+    width: 100%;
+}
+.placeholder-line:nth-child(3) {
+    width: 60%;
+}
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+.no-dreams {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+body.night-mode .no-dreams {
+    color: var(--light-text);
+}
+/* Footer */
+footer {
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 3rem;
+    font-family: 'Comfortaa', cursive;
+    position: relative;
+}
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+body.night-mode footer::before {
+    background: linear-gradient(90deg, transparent, var(--light-text), transparent);
+}
+footer p {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+body.night-mode .social-links a {
+    color: var(--light-text);
+}
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: scale(1.2);
+    background: rgba(0, 0, 0, 0.1);
+}
+body.night-mode .social-links a:hover {
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.toast.show {
+    opacity: 1;
+}
+.toast.success {
+    background: var(--success-color);
+}
+.toast.error {
+    background: var(--error-color);
+}
+/* New Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+}
+@keyframes pinGlow {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.9;
+    }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .dreams-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+@media (max-width: 768px) {
+    body {
+        padding-top: 150px;
+    }
+    
+    .dream-title {
+        font-size: 2.5rem;
+    }
+    
+    .dream-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .floating-add-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        bottom: 2rem;
+        right: 2rem;
+    }
+    
+    .floating-add-btn .tooltip {
+        display: none;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+    
+    .glass-card {
+        padding: 1.8rem;
+    }
+    
+    .dream-card {
+        transform: translateY(20px) rotate(0deg) !important;
+    }
+    
+    .dream-card:hover {
+        transform: translateY(-5px) rotate(0deg) !important;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 0.9rem;
+    }
+    
+    .filters-container {
+        flex-direction: column;
+    }
+    
+    .search-container,
+    .sort-container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+@media (max-width: 480px) {
+    body {
+        padding-top: 130px;
+    }
+    
+    .dream-title {
+        font-size: 2rem;
+    }
+    
+    .header-content {
+        padding: 0 1rem;
+    }
+    
+    .theme-toggle,
+    .filter-toggle {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    .theme-toggle {
+        right: 1rem;
+    }
+    
+    .filter-toggle {
+        left: 1rem;
+    }
+    
+    main {
+        padding: 0 1.5rem 3rem;
+    }
+    
+    .dream-card {
+        padding: 1.5rem;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 0.8rem;
+    }
+    
+    .submit-btn {
+        padding: 1rem;
+    }
+}
+
+/* Mobile-First Enhancements */
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px; /* Reduced for mobile */
+        -webkit-text-size-adjust: 100%; /* Prevent font scaling */
+    }
+
+    /* Header adjustments */
+    .header-content {
+        padding: 0 1rem;
+    }
+
+    .dream-title {
+        font-size: 2rem;
+        margin: 0 auto;
+        max-width: 70%;
+        line-height: 1.2;
+    }
+
+    .dream-subtitle {
+        display: none; /* Hide subtitle on mobile */
+    }
+
+    .theme-toggle, .filter-toggle {
+        width: 2.5rem;
+        height: 2.5rem;
+        position: fixed;
+        top: 1rem;
+    }
+
+    .theme-toggle {
+        right: 1rem;
+    }
+
+    .filter-toggle {
+        left: 1rem;
+    }
+
+    /* Form input enhancements for mobile */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 16px; /* Prevent iOS zoom */
+        padding: 1rem;
+        min-height: 50px; /* Better touch target */
+    }
+
+    .form-group textarea {
+        min-height: 150px;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    .glass-card {
+        padding: 1.5rem;
+    }
+
+    /* Dream cards */
+    .dreams-container {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 1.5rem;
+    }
+
+    .dream-card {
+        padding: 1.5rem;
+        transform: none !important;
+    }
+
+    /* Floating button */
+    .floating-add-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    /* Better scrolling behavior */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Prevent body scrolling when modal is open */
+    body.modal-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Enhanced input focus styles */
+    input:focus, textarea:focus, select:focus {
+        transform: scale(1) !important; /* Remove scale on focus for mobile */
+        box-shadow: 0 0 0 2px var(--accent-color) !important;
+    }
+
+    /* Submit button */
+    .submit-btn {
+        padding: 1.2rem;
+        font-size: 1rem;
+    }
+
+    /* Filters section */
+    .filters-section {
+        padding: 1rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-container input {
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+    }
+
+    .search-container button {
+        border-radius: 10px;
+        padding: 0.8rem;
+    }
+
+    .sort-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .sort-container select {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Very small devices (phones, 360px and down) */
+@media (max-width: 360px) {
+    body {
+        padding-top: 110px;
+    }
+
+    .dream-title {
+        font-size: 1.8rem;
+    }
+
+    .glass-card {
+        padding: 1.2rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .dream-card {
+        padding: 1.2rem;
+    }
+}
+
+/* Input enhancements for all devices */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    -webkit-appearance: none; /* Remove iOS shadow */
+    appearance: none;
+    border-radius: 10px !important;
+}
+
+/* Date inputs specifically */
+input[type="date"] {
+    position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    color: transparent;
+    background: transparent;
+}
+
+/* Better dropdowns */
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238a2be2'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem !important;
+}
+
+body.night-mode select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+}
+
+/* Touch target improvements */
+button, .dream-card, .floating-add-btn {
+    touch-action: manipulation; /* Eliminate touch delay */
+}
+
+/* Prevent zoom on input focus in mobile Safari */
+@media (max-width: 767px) {
+    input, textarea, select {
+        font-size: 16px;
+    }
+}
+
+/* Better scrolling in modals */
+.modal-content {
+    overscroll-behavior: contain; /* Prevent scroll chaining */
+}
+
+/* Keyboard navigation improvements */
+:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Performance optimizations */
+.dream-card, .glass-card {
+    will-change: transform;
+    backface-visibility: hidden;
+}
